@@ -5,6 +5,7 @@ import banner from '../sanity_ecommerce/schemas/banner';
 
 //serverSide Renderből jönnek a bemenők
 const Home = ( {products, bannerData} ) => {
+
   return (
     <>
       <HeroBanner heroBanner={bannerData && bannerData[0] }/>
@@ -16,13 +17,17 @@ const Home = ( {products, bannerData} ) => {
 
         <div className='products-container'>
           {/* ?= check if not null */}
-          {products?.map( (product) => <Product key={product.id} product={product}/> )}
+          {products?.map( (product) =>
+           <Product key={product._id} product={product}/>
+            )}
 
 
         </div>
 
       </div>
-      <FooterBanner/>
+
+                                  {/* if banner data exists */}
+      <FooterBanner footerBanner={ bannerData && bannerData[0] }/>
     </>
   )
 }

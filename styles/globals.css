@@ -539,6 +539,7 @@ padding: 6px;
 .quantity-desc .num{
   border-right: 1px solid gray;
   font-size: 20px;
+  user-select: none;
 }
 .quantity-desc .plus{
   color: rgb(49, 168, 49);
@@ -702,6 +703,7 @@ margin-top: 160px;
   }
   .buttons .add-to-cart{
     width: 150px;
+    user-select: none;
   }
   .buttons .buy-now{
     width: 150px;
@@ -760,4 +762,9 @@ margin-top: 160px;
   width: 300px;
   margin: auto;
 }
+}
+
+
+[type="button"]{
+  user-select: none;
 }
