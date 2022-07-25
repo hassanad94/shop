@@ -14,8 +14,6 @@ const Cart = () => {
 
   const handleCheckout = async () => {
 
-    console.log( JSON.stringify(cartItems));
-
     const stripe = await getStripe();
 
     const response = await fetch('/api/stripe', {

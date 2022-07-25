@@ -29,10 +29,16 @@ export const StateContext = ({ children }) => {
       })
 
       setCartItems(updatedCartItems);
+
+      localStorage.setItem("cartItem", JSON.stringify( updatedCartItems ));
+      
     } else {
       product.quantity = quantity;
       
-      setCartItems([...cartItems, { ...product }]);
+      let updatedCartItems =  [...cartItems, { ...product }];
+      
+      setCartItems( updatedCartItems );
+      localStorage.setItem("cartItem", JSON.stringify( updatedCartItems ));
     }
 
     toast.success(`${qty} ${product.name} added to the cart.`);
@@ -45,6 +51,8 @@ export const StateContext = ({ children }) => {
     setTotalPrice((prevTotalPrice) => prevTotalPrice -foundProduct.price * foundProduct.quantity);
     setTotalQuantities(prevTotalQuantities => prevTotalQuantities - foundProduct.quantity);
     setCartItems(newCartItems);
+
+    localStorage.setItem("cartItem", JSON.stringify( newCartItems ));
   }
 
   const toggleCartItemQuanitity = (id, value) => {
@@ -55,7 +63,9 @@ export const StateContext = ({ children }) => {
 
     if(value === 'inc') {
         /*itt hozzáadom mint új*/ 
-      setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ]);
+      let newCartItems = [...newCartItems, { ...foundProduct, quantity: foundProduct.quantity + 1 } ];
+      setCartItems( newCartItems );
+      localStorage.setItem("cartItem", JSON.stringify( newCartItems ));
       setTotalPrice((prevTotalPrice) => prevTotalPrice + foundProduct.price);
       setTotalQuantities(prevTotalQuantities => prevTotalQuantities + 1);
 
@@ -66,13 +76,14 @@ export const StateContext = ({ children }) => {
 
         if( foundProduct.quantity === 1 ){
 
-            onRemove(foundProduct);
+          onRemove(foundProduct);
 
-            return;
+          return;
 
         }
-
-        setCartItems([...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ]);
+        let newCartItems = [...newCartItems, { ...foundProduct, quantity: foundProduct.quantity - 1 } ];
+        setCartItems( newCartItems );
+        localStorage.setItem("cartItem", JSON.stringify( newCartItems ));
         setTotalPrice((prevTotalPrice) => prevTotalPrice - foundProduct.price);
         setTotalQuantities(prevTotalQuantities => prevTotalQuantities - 1);
     
@@ -82,15 +93,19 @@ export const StateContext = ({ children }) => {
   }
 
   const incQty = () => {
+
     setQty((prevQty) => prevQty + 1);
+
   }
 
   const decQty = () => {
+
     setQty((prevQty) => {
       if(prevQty - 1 < 1) return 1;
      
       return prevQty - 1;
     });
+
   }
 
   return (
